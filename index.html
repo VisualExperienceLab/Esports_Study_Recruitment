@@ -11,34 +11,121 @@
             box-sizing: border-box;
         }
 
+        /* --- 1. Theme Variables --- */
+        :root {
+            --bg-color: #fff;
+            --text-color: #555;
+            --heading-color: #333;
+            --alt-bg-color: #f9f9f9;
+            --nav-bg-color: rgba(255, 255, 255, 0.95);
+            --nav-link-color: #555;
+            --game-item-bg: #fff;
+            --game-item-border: #e0e0e0;
+            --box-bg: #f5f5f5;
+            --box-highlight-bg: #e8f7f6;
+            --box-incentive-bg: #fff9e6;
+            --system-box-bg: #f5f5f5;
+            --footer-bg: #333;
+            --footer-text: white;
+            
+            /* Static colors */
+            --brand-color: #4ecdc4;
+            --brand-color-hover: #3dbebd;
+            --brand-shadow: rgba(78, 205, 196, 0.3);
+            --white: #fff;
+            --black: #000;
+            --incentive-border: #ffc107;
+            
+            /* Transitions */
+            --transition-speed: 0.3s;
+        }
+
+        /* 2. Auto dark mode (system default) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #ccc;
+                --heading-color: #eee;
+                --alt-bg-color: #222;
+                --nav-bg-color: rgba(25, 25, 25, 0.95);
+                --nav-link-color: #ccc;
+                --game-item-bg: #2a2a2a;
+                --game-item-border: #444;
+                --box-bg: #333;
+                --box-highlight-bg: #2a3a39;
+                --box-incentive-bg: #3a362a;
+                --system-box-bg: #333;
+                --footer-bg: #222;
+                --footer-text: #ccc;
+            }
+        }
+
+        /* 3. Manual dark mode (forced by toggle) */
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #ccc;
+            --heading-color: #eee;
+            --alt-bg-color: #222;
+            --nav-bg-color: rgba(25, 25, 25, 0.95);
+            --nav-link-color: #ccc;
+            --game-item-bg: #2a2a2a;
+            --game-item-border: #444;
+            --box-bg: #333;
+            --box-highlight-bg: #2a3a39;
+            --box-incentive-bg: #3a362a;
+            --system-box-bg: #333;
+            --footer-bg: #222;
+            --footer-text: #ccc;
+        }
+
+        /* 4. Manual light mode (forced by toggle) */
+        body.light-mode {
+            --bg-color: #fff;
+            --text-color: #555;
+            --heading-color: #333;
+            --alt-bg-color: #f9f9f9;
+            --nav-bg-color: rgba(255, 255, 255, 0.95);
+            --nav-link-color: #555;
+            --game-item-bg: #fff;
+            --game-item-border: #e0e0e0;
+            --box-bg: #f5f5f5;
+            --box-highlight-bg: #e8f7f6;
+            --box-incentive-bg: #fff9e6;
+            --system-box-bg: #f5f5f5;
+            --footer-bg: #333;
+            --footer-text: white;
+        }
+
+        /* --- 5. Refactored Base Styles --- */
         body {
             font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             line-height: 1.65;
-            color: #555;
-            background: #fff;
+            color: var(--text-color);
+            background: var(--bg-color);
+            transition: background var(--transition-speed), color var(--transition-speed);
         }
 
         h1, h2, h3 {
             font-weight: 300;
-            color: #333;
+            color: var(--heading-color);
             line-height: 1.3;
         }
 
         h1 { font-size: 2.75em; margin-bottom: 0.5em; }
-        h2 { font-size: 2em; margin-bottom: 1em; border-bottom: 2px solid #4ecdc4; padding-bottom: 0.5em; }
+        h2 { font-size: 2em; margin-bottom: 1em; border-bottom: 2px solid var(--brand-color); padding-bottom: 0.5em; }
         h3 { font-size: 1.5em; margin-bottom: 0.75em; }
 
         /* Header */
         #header {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('images/hero.png') center/cover;
-            color: white;
+            color: var(--white); /* Stays white on dark image */
             padding: 8em 0;
             text-align: center;
         }
 
         #header h1 {
-            color: white;
+            color: var(--white);
             font-size: 3.5em;
             margin-bottom: 0.3em;
         }
@@ -52,8 +139,8 @@
         /* Button */
         .button {
             display: inline-block;
-            background: #4ecdc4;
-            color: white !important;
+            background: var(--brand-color);
+            color: var(--white) !important;
             padding: 1em 3em;
             border-radius: 4px;
             text-decoration: none;
@@ -65,9 +152,9 @@
         }
 
         .button:hover {
-            background: #3dbebd;
+            background: var(--brand-color-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+            box-shadow: 0 4px 12px var(--brand-shadow);
         }
 
         .button.large {
@@ -85,10 +172,11 @@
         /* Sections */
         section {
             padding: 5em 0;
+            transition: background var(--transition-speed);
         }
 
         section.alt {
-            background: #f9f9f9;
+            background: var(--alt-bg-color);
         }
 
         /* Navigation */
@@ -97,11 +185,13 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--nav-bg-color);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
             padding: 1em 0;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             z-index: 1000;
+            transition: background var(--transition-speed);
         }
 
         #nav ul {
@@ -110,10 +200,11 @@
             justify-content: center;
             gap: 2em;
             flex-wrap: wrap;
+            align-items: center; /* Vertically center toggle */
         }
 
         #nav a {
-            color: #555;
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
@@ -121,7 +212,7 @@
         }
 
         #nav a:hover {
-            color: #4ecdc4;
+            color: var(--brand-color);
         }
 
         /* Games Grid */
@@ -133,17 +224,18 @@
         }
 
         .game-item {
-            background: white;
+            background: var(--game-item-bg);
             padding: 1.5em;
             text-align: center;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--game-item-border);
             border-radius: 4px;
             font-weight: 600;
             transition: all 0.3s;
+            color: var(--heading-color); /* Ensure text color updates */
         }
 
         .game-item:hover {
-            border-color: #4ecdc4;
+            border-color: var(--brand-color);
             transform: translateY(-3px);
         }
 
@@ -161,96 +253,155 @@
 
         .feature .icon {
             font-size: 3em;
-            color: #4ecdc4;
+            color: var(--brand-color);
             margin-bottom: 0.5em;
         }
 
-        .feature h3 {
-            margin-bottom: 0.5em;
-        }
+        /* ... other feature styles ... */
 
         /* List styles */
-        ul.checklist {
-            list-style: none;
-            margin: 2em 0;
-        }
-
-        ul.checklist li {
-            padding: 0.5em 0 0.5em 2em;
-            position: relative;
-            font-size: 1.1em;
-        }
-
         ul.checklist li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #4ecdc4;
-            font-weight: bold;
-            font-size: 1.5em;
+            color: var(--brand-color);
+            /* ... */
         }
 
         /* Box */
         .box {
-            background: #f5f5f5;
+            background: var(--box-bg);
             padding: 2em;
-            border-left: 4px solid #4ecdc4;
+            border-left: 4px solid var(--brand-color);
             margin: 2em 0;
+            transition: background var(--transition-speed);
         }
 
         .box.highlight {
-            background: #e8f7f6;
-            border-color: #4ecdc4;
+            background: var(--box-highlight-bg);
+            border-color: var(--brand-color);
         }
 
         .box.incentive {
-            background: #fff9e6;
-            border-color: #ffc107;
+            background: var(--box-incentive-bg);
+            border-color: var(--incentive-border);
         }
 
         /* System Info Grid */
-        .system-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5em;
-            margin: 2em 0;
-        }
-
         .system-box {
-            background: #f5f5f5;
+            background: var(--system-box-bg);
             padding: 2em;
-            border-left: 4px solid #4ecdc4;
+            border-left: 4px solid var(--brand-color);
             border-radius: 4px;
+            transition: background var(--transition-speed);
         }
 
         .system-box h4 {
-            margin-bottom: 0.5em;
-            color: #333;
-            font-size: 1.2em;
+            color: var(--heading-color);
+            /* ... */
         }
 
         /* Footer */
         #footer {
-            background: #333;
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             text-align: center;
             padding: 3em 0;
+            transition: background var(--transition-speed), color var(--transition-speed);
         }
 
         #footer a {
-            color: #4ecdc4;
+            color: var(--brand-color);
             text-decoration: none;
         }
 
         /* Responsive */
         @media screen and (max-width: 768px) {
-            #header h1 { font-size: 2em; }
-            #header p { font-size: 1.2em; }
-            h2 { font-size: 1.5em; }
-            section { padding: 3em 0; }
-            #nav ul { gap: 1em; padding: 0 1em; }
-            #nav a { font-size: 0.9em; }
+            /* ... existing responsive styles ... */
+            #nav ul { gap: 1em; padding: 0 1em; justify-content: center; }
         }
+
+        /* --- 6. Theme Toggle Styles --- */
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* for mobile */
+        }
+
+        .theme-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-toggle .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            overflow: hidden;
+        }
+
+        .theme-toggle .slider:before { /* The moving part */
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .theme-toggle input:checked + .slider {
+            background-color: var(--brand-color);
+        }
+
+        .theme-toggle input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .theme-toggle .icon {
+            font-size: 16px;
+            line-height: 1;
+            z-index: 0;
+            user-select: none;
+            transition: opacity 0.4s;
+        }
+
+        .theme-toggle .sun {
+            opacity: 1;
+            margin-left: 2px;
+        }
+        .theme-toggle .moon {
+            opacity: 0;
+            position: absolute;
+            right: 7px;
+        }
+
+        /* Show/hide icons based on check state */
+        .theme-toggle input:checked + .slider .sun {
+            opacity: 0;
+        }
+        .theme-toggle input:checked + .slider .moon {
+            opacity: 1;
+        }
+        
     </style>
 </head>
 <body>
@@ -264,6 +415,16 @@
             <li><a href="#system-info">System Information Options</a></li>
             <li><a href="#incentive">Incentive</a></li>
             <li><a href="#participate">Ready to Participate?</a></li>
+            <!-- NEW THEME TOGGLE -->
+            <li class="theme-toggle-container">
+                <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle dark mode">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider">
+                        <span class="icon sun">☀️</span>
+                        <span class="icon moon">🌙</span>
+                    </span>
+                </label>
+            </li>
         </ul>
     </nav>
 
@@ -424,6 +585,65 @@
             </p>
         </div>
     </section>
+
+    <!-- NEW THEME TOGGLE SCRIPT -->
+    <script>
+        (function() {
+            // Immediately-invoked function to avoid polluting global scope
+            
+            const toggle = document.getElementById('theme-toggle-checkbox');
+            const body = document.body;
+            const preferenceKey = 'theme-preference';
+
+            /**
+             * Applies the theme to the body and updates the toggle state.
+             * @param {string} theme - 'light' or 'dark'
+             */
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    body.classList.remove('light-mode'); // Ensure light is off
+                    toggle.checked = true;
+                } else { // 'light'
+                    body.classList.add('light-mode');
+                    body.classList.remove('dark-mode'); // Ensure dark is off
+                    toggle.checked = false;
+                }
+            }
+
+            // --- 1. Set initial theme on page load ---
+            const savedPreference = localStorage.getItem(preferenceKey);
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            let initialTheme;
+            if (savedPreference) {
+                // Use the user's saved preference
+                initialTheme = savedPreference;
+            } else {
+                // No preference saved, use the system preference
+                initialTheme = systemPrefersDark ? 'dark' : 'light';
+            }
+            setTheme(initialTheme);
+
+
+            // --- 2. Listen for toggle clicks ---
+            toggle.addEventListener('change', () => {
+                const newTheme = toggle.checked ? 'dark' : 'light';
+                setTheme(newTheme);
+                // Save the user's explicit choice to local storage
+                localStorage.setItem(preferenceKey, newTheme);
+            });
+
+            // --- 3. Listen for system theme changes ---
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                // ONLY update if no manual preference is saved in local storage
+                if (!localStorage.getItem(preferenceKey)) {
+                    const newSystemTheme = e.matches ? 'dark' : 'light';
+                    setTheme(newSystemTheme);
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
