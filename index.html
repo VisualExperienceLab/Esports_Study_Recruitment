@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Esports Configuration Study - Participate</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #555;
+            background: #fff;
+        }
+
+        h1, h2, h3 {
+            font-weight: 300;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 2.75em; margin-bottom: 0.5em; }
+        h2 { font-size: 2em; margin-bottom: 1em; border-bottom: 2px solid #4ecdc4; padding-bottom: 0.5em; }
+        h3 { font-size: 1.5em; margin-bottom: 0.75em; }
+
+        /* Header */
+        #header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('images/hero.png') center/cover;
+            color: white;
+            padding: 8em 0;
+            text-align: center;
+        }
+
+        #header h1 {
+            color: white;
+            font-size: 3.5em;
+            margin-bottom: 0.3em;
+        }
+
+        #header p {
+            font-size: 1.5em;
+            margin-bottom: 2em;
+            opacity: 0.9;
+        }
+
+        /* Button */
+        .button {
+            display: inline-block;
+            background: #4ecdc4;
+            color: white !important;
+            padding: 1em 3em;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #3dbebd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+        }
+
+        .button.large {
+            padding: 1.2em 4em;
+            font-size: 1.3em;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2em;
+        }
+
+        /* Sections */
+        section {
+            padding: 5em 0;
+        }
+
+        section.alt {
+            background: #f9f9f9;
+        }
+
+        /* Navigation */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1em 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        #nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+        }
+
+        #nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        #nav a:hover {
+            color: #4ecdc4;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1em;
+            margin: 2em 0;
+        }
+
+        .game-item {
+            background: white;
+            padding: 1.5em;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .game-item:hover {
+            border-color: #4ecdc4;
+            transform: translateY(-3px);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3em;
+            margin: 3em 0;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature .icon {
+            font-size: 3em;
+            color: #4ecdc4;
+            margin-bottom: 0.5em;
+        }
+
+        .feature h3 {
+            margin-bottom: 0.5em;
+        }
+
+        /* List styles */
+        ul.checklist {
+            list-style: none;
+            margin: 2em 0;
+        }
+
+        ul.checklist li {
+            padding: 0.5em 0 0.5em 2em;
+            position: relative;
+        }
+
+        ul.checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        /* Box */
+        .box {
+            background: #f5f5f5;
+            padding: 2em;
+            border-left: 4px solid #4ecdc4;
+            margin: 2em 0;
+        }
+
+        .box.highlight {
+            background: #e8f7f6;
+            border-color: #4ecdc4;
+        }
+
+        /* Footer */
+        #footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3em 0;
+        }
+
+        #footer a {
+            color: #4ecdc4;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            #header h1 { font-size: 2em; }
+            #header p { font-size: 1.2em; }
+            h2 { font-size: 1.5em; }
+            section { padding: 3em 0; }
+            #nav ul { flex-direction: column; gap: 1em; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="nav">
+        <ul>
+            <li><a href="#one">About</a></li>
+            <li><a href="#two">Games</a></li>
+            <li><a href="#three">Requirements</a></li>
+            <li><a href="#four">Participate</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+        <div class="container">
+            <h1>Esports Configuration Study</h1>
+            <p>Help us understand how competitive gamers optimize their game settings</p>
+            <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" class="button large" target="_blank">Take the Survey</a>
+        </div>
+    </section>
+
+    <!-- One -->
+    <section id="one">
+        <div class="container">
+            <h2>What is Our Aim?</h2>
+            <p style="font-size: 1.2em; margin-bottom: 2em;">
+                We're looking for participants in an esports research experiment. If you play any esports games 
+                either competitively or casually, you are eligible for this survey! We'll ask you about the 
+                games you play, how you configure your settings, and your preferences for visual quality vs. performance.
+            </p>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="icon">🎮</div>
+                    <h3>Share Your Setup</h3>
+                    <p>Tell us about your game settings, hardware, and configuration choices</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">📊</div>
+                    <h3>Help Research</h3>
+                    <p>Contribute to academic research that helps improve gaming experiences</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="alt">
+        <div class="container">
+            <h2>Games We're Studying</h2>
+            <p style="font-size: 1.1em; margin-bottom: 2em;">
+                We're examining configuration practices across 14 popular competitive titles
+            </p>
+            <div class="games-grid">
+                <div class="game-item">Valorant</div>
+                <div class="game-item">CS2</div>
+                <div class="game-item">Dota 2</div>
+                <div class="game-item">League of Legends</div>
+                <div class="game-item">Overwatch 2</div>
+                <div class="game-item">Apex Legends</div>
+                <div class="game-item">Rainbow Six Siege</div>
+                <div class="game-item">Fortnite</div>
+                <div class="game-item">PUBG</div>
+                <div class="game-item">Starcraft II</div>
+                <div class="game-item">Rocket League</div>
+                <div class="game-item">Call of Duty</div>
+                <div class="game-item">FIFA / FC 24</div>
+                <div class="game-item">Street Fighter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three -->
+    <section id="three">
+        <div class="container">
+            <h2>What Do You Need?</h2>
+            
+            <div class="box highlight">
+                <h3>✓ Quick Summary</h3>
+                <ul class="checklist">
+                    <li>Must be 18+ years old</li>
+                    <li>Play at least one esports game competitively or casually</li>
+                    <li>10-15 minutes to complete the survey</li>
+                    <li>System information collection is optional</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 3em;">System Information Options</h3>
+            <p style="margin-bottom: 1.5em;">
+                We offer several easy ways to provide your hardware specifications (all optional):
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5em;">
+                <div class="box">
+                    <strong>Our Custom Tool</strong><br>
+                    Simple one-click collection
+                </div>
+                <div class="box">
+                    <strong>Steam</strong><br>
+                    Export from Steam settings
+                </div>
+                <div class="box">
+                    <strong>GeForce Experience</strong><br>
+                    For NVIDIA GPU users
+                </div>
+                <div class="box">
+                    <strong>Manual Entry</strong><br>
+                    Type it in yourself
+                </div>
+            </div>
+            
+            <p style="margin-top: 2em; padding: 1.5em; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+                <strong>Incentive:</strong> Participants have a chance to win $100 digital gift cards (or equivalent in local currency) 
+                through a raffle. Uploading game configuration files will give you an entry into an additional raffle, 
+                increasing your chances to win!
+            </p>
+        </div>
+    </section>
+
+    <!-- Four -->
+    <section id="four" class="alt">
+        <div class="container">
+            <h2>Ready to Participate?</h2>
+
+            <div style="text-align: center; margin: 3em 0;">
+                <p style="font-size: 1.3em; margin-bottom: 2em;">
+                    Your insights will help us understand how gamers optimize their setups for competitive play
+                </p>
+                <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" class="button large" target="_blank">Start the Survey</a>
+            </div>
+
+            <div class="box" style="margin-top: 3em;">
+                <h3>About This Study</h3>
+                <p>
+                    This research is conducted by the <strong>Visual Experience Lab at NC State University</strong>. 
+                    The study examines how competitive players navigate tradeoffs between visual quality and 
+                    performance when configuring game settings.
+                </p>
+                <p style="margin-top: 1.5em;">
+                    <strong>Principal Investigator:</strong> Dr. Benjamin Watson<br>
+                    <strong>Study Contact:</strong> Ashish Rajpurohit, <a href="mailto:arajpur@ncsu.edu">arajpur@ncsu.edu</a><br>
+                    <strong>IRB Approval:</strong> #25527<br>
+                    <strong>Target Conference:</strong> CHI PLAY
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="container">
+            <p style="margin-bottom: 0.5em;">
+                <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" target="_blank">Take Survey</a>
+            </p>
+            <p style="opacity: 0.7;">
+                NC State University Visual Experience Lab | IRB #25527
+            </p>
+        </div>
+    </section>
+
+</body>
+</html>

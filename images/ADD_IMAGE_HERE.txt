@@ -1,0 +1,13 @@
+📸 ADD YOUR HERO IMAGE HERE!
+
+1. Save your AI-generated esports characters image as: hero.png
+2. Place it in this folder (images/)
+3. The file path should be: images/hero.png
+
+Image specifications:
+- Name: hero.png (exactly this name)
+- Recommended size: 1920x1080px
+- Format: PNG or JPG (PNG preferred)
+- Content: Your custom esports characters illustration
+
+Once added, the image will appear as the hero background on the recruitment page with a dark overlay for text readability.
