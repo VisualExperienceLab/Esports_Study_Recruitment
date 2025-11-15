@@ -4,6 +4,8 @@
     <title>Esports Configuration Study - Participate</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <!-- STYLES -->
     <style>
         * {
             margin: 0;
@@ -24,7 +26,6 @@
             --box-bg: #f5f5f5;
             --box-highlight-bg: #e8f7f6;
             --box-incentive-bg: #fff9e6;
-            --system-box-bg: #f5f5f5;
             --footer-bg: #333;
             --footer-text: white;
             
@@ -54,7 +55,6 @@
                 --box-bg: #333;
                 --box-highlight-bg: #2a3a39;
                 --box-incentive-bg: #3a362a;
-                --system-box-bg: #333;
                 --footer-bg: #222;
                 --footer-text: #ccc;
             }
@@ -73,7 +73,6 @@
             --box-bg: #333;
             --box-highlight-bg: #2a3a39;
             --box-incentive-bg: #3a362a;
-            --system-box-bg: #333;
             --footer-bg: #222;
             --footer-text: #ccc;
         }
@@ -91,7 +90,6 @@
             --box-bg: #f5f5f5;
             --box-highlight-bg: #e8f7f6;
             --box-incentive-bg: #fff9e6;
-            --system-box-bg: #f5f5f5;
             --footer-bg: #333;
             --footer-text: white;
         }
@@ -346,96 +344,63 @@
             #nav a { font-size: 0.9em; }
         }
 
-        /* --- 6. Theme Toggle Styles --- */
+        /* --- 6. Theme Toggle Styles (REDESIGNED) --- */
         .theme-toggle-container {
-            display: flex;
-            align-items: center;
             margin-left: auto; /* Pushes toggle to the far right */
         }
         
-        .theme-toggle-label {
-            color: var(--nav-link-color);
-            font-weight: 600;
-            font-size: 0.9em;
-            margin-right: 0.75em;
-            white-space: nowrap;
-        }
-
         .theme-toggle {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
+            background: var(--alt-bg-color);
+            border: 1px solid var(--game-item-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* for mobile */
-        }
-
-        .theme-toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .theme-toggle .slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 5px;
+            justify-content: center;
+            font-size: 20px;
+            transition: all var(--transition-speed);
+            position: relative;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent; /* for mobile */
         }
-
-        .theme-toggle .slider:before { /* The moving part */
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-            z-index: 1;
+        .theme-toggle:hover {
+            border-color: var(--brand-color);
         }
-
-        .theme-toggle input:checked + .slider {
-            background-color: var(--brand-color);
+        
+        /* This is the actual checkbox, we hide it */
+        .theme-toggle input {
+            display: none; 
         }
-
-        .theme-toggle input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
+        
+        /* This is the container for the icons */
         .theme-toggle .icon {
-            font-size: 16px;
-            line-height: 1;
-            z-index: 0;
-            user-select: none;
-            transition: opacity 0.4s;
-        }
-
-        .theme-toggle .sun {
-            opacity: 1;
-            margin-left: 2px;
-        }
-        .theme-toggle .moon {
-            opacity: 0;
             position: absolute;
-            right: 7px;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            user-select: none;
         }
 
-        /* Show/hide icons based on check state */
-        .theme-toggle input:checked + .slider .sun {
+        /* Initial state (light mode) */
+        .theme-toggle .sun {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        
+        .theme-toggle .moon {
+            transform: scale(0) rotate(-90deg);
             opacity: 0;
         }
-        .theme-toggle input:checked + .slider .moon {
+
+        /* This selector is triggered by the JS setting .dark-mode on the <body> */
+        /* This is the state for dark mode */
+        body.dark-mode .theme-toggle .sun {
+            transform: scale(0) rotate(90deg);
+            opacity: 0;
+        }
+
+        body.dark-mode .theme-toggle .moon {
+            transform: scale(1) rotate(0deg);
             opacity: 1;
         }
         
@@ -443,25 +408,33 @@
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav id="nav">
         <ul>
             <li><a href="#aim">What is Our Aim?</a></li>
             <li><a href="#games">Games We're Studying</a></li>
             <li><a href="#requirements">What Do You Need?</a></li>
             <li><a href="#incentive">Incentive</a></li>
-            <li><a href="#about-us">About Us</a></li> <li><a href="#participate">Ready to Participate?</a></li>
-            <li class="theme-toggle-container">
-                <span class="theme-toggle-label">Theme:</span> <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle dark mode">
+            <li><a href="#participate">Ready to Participate?</a></li> <!-- SWAPPED -->
+            <li><a href="#about-us">About Us</a></li> <!-- SWAPPED -->
+            
+            <!-- MOVED AND REDESIGNED THEME TOGGLE -->
+            <li class.theme-toggle-container">
+                <!-- The <label> is the clickable button -->
+                <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle theme">
+                    
+                    <!-- The checkbox is hidden but tracks the state (checked/unchecked) -->
                     <input type="checkbox" id="theme-toggle-checkbox">
-                    <span class="slider">
-                        <span class="icon sun">☀️</span>
-                        <span class="icon moon">🌙</span>
-                    </span>
+                    
+                    <!-- The icons are shown/hidden with CSS based on the <body> class -->
+                    <span class="icon sun">☀️</span>
+                    <span class="icon moon">🌙</span>
                 </label>
             </li>
         </ul>
     </nav>
 
+    <!-- Header -->
     <section id="header">
         <div class="container">
             <h1>Esports Configuration Study</h1>
@@ -470,6 +443,7 @@
         </div>
     </section>
 
+    <!-- What is Our Aim? -->
     <section id="aim">
         <div class="container">
             <h2>What is Our Aim?</h2>
@@ -485,7 +459,7 @@
                     <h3>Share Your Setup</h3>
                     <p>Tell us about your game settings, hardware, and configuration choices</p>
                 </div>
-                <div class="feature">
+                <div class.feature">
                     <div class="icon">📊</div>
                     <h3>Help Research</h3>
                     <p>Contribute to academic research that helps improve gaming experiences</p>
@@ -494,6 +468,7 @@
         </div>
     </section>
 
+    <!-- Games We're Studying -->
     <section id="games" class="alt">
         <div class="container">
             <h2>Games We're Studying</h2>
@@ -507,7 +482,7 @@
                 <div class="game-item">League of Legends</div>
                 <div class="game-item">Overwatch 2</div>
                 <div class="game-item">Apex Legends</div>
-                <div class="game-item">Rainbow Six Siege</div>
+                <div class-="game-item">Rainbow Six Siege</div>
                 <div class="game-item">Fortnite</div>
                 <div class="game-item">PUBG</div>
                 <div class="game-item">Starcraft II</div>
@@ -519,6 +494,7 @@
         </div>
     </section>
 
+    <!-- What Do You Need? -->
     <section id="requirements">
         <div class="container">
             <h2>What Do You Need?</h2>
@@ -534,7 +510,9 @@
         </div>
     </section>
 
-    <section id="incentive" class="alt"> <div class="container">
+    <!-- Incentive -->
+    <section id="incentive" class="alt">
+        <div class="container">
             <h2>Incentive</h2>
             
             <div class="box incentive">
@@ -547,7 +525,26 @@
         </div>
     </section>
 
-    <section id="about-us"> <div class="container">
+    <!-- Ready to Participate? (SWAPPED) -->
+    <section id="participate"> <!-- Removed .alt -->
+        <div class="container">
+            <h2>Ready to Participate?</h2>
+
+            <div style="text-align: center; margin: 3em 0;">
+                <p style="font-size: 1.3em; margin-bottom: 2em;">
+                    Your insights will help us understand how gamers optimize their setups for competitive play
+                </p>
+                <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" class="button large" target="_blank">Start the Survey</a>
+            </div>
+
+            <!-- REMOVED "About this Study" box -->
+
+        </div>
+    </section>
+
+    <!-- About Us Section (SWAPPED & UPDATED) -->
+    <section id="about-us" class="alt"> <!-- Added .alt -->
+        <div class="container">
             <h2>About Us</h2>
             <p style="font-size: 1.2em; margin-bottom: 2em;">
                 I am Ashish Rajpurohit, a PhD Student at North Carolina State University. I'm currently working on a research
@@ -558,35 +555,20 @@
                 more about this growing industry to help players get the most out of their gameplay, either casually or
                 competitively.
             </p>
+            <!-- ADDED text from the removed box -->
+            <p style="font-size: 1.2em; margin-bottom: 2em;">
+                This research is conducted by the <strong>Visual Experience Lab at NC State University</strong>. 
+                The study examines how competitive players navigate tradeoffs between visual quality and 
+                performance when configuring game settings.
+            </p>
+            <p style="font-size: 1.1em; opacity: 0.8;">
+                <strong>Study Contact:</strong> Ashish Rajpurohit, <a href="mailto:arajpur@ncsu.edu">arajpur@ncsu.edu</a><br>
+                <strong>IRB Approval:</strong> #25527
+            </p>
         </div>
     </section>
 
-
-    <section id="participate" class="alt"> <div class="container">
-            <h2>Ready to Participate?</h2>
-
-            <div style="text-align: center; margin: 3em 0;">
-                <p style="font-size: 1.3em; margin-bottom: 2em;">
-                    Your insights will help us understand how gamers optimize their setups for competitive play
-                </p>
-                <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" class="button large" target="_blank">Start the Survey</a>
-            </div>
-
-            <div class="box" style="margin-top: 3em;">
-                <h3>About This Study</h3>
-                <p>
-                    This research is conducted by the <strong>Visual Experience Lab at NC State University</strong>. 
-                    The study examines how competitive players navigate tradeoffs between visual quality and 
-                    performance when configuring game settings.
-                </p>
-                <p style="margin-top: 1.5em;">
-                    <strong>Study Contact:</strong> Ashish Rajpurohit, <a href="mailto:arajpur@ncsu.edu">arajpur@ncsu.edu</a><br>
-                    <strong>IRB Approval:</strong> #25527<br>
-                </p>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <section id="footer">
         <div class="container">
             <p style="margin-bottom: 0.5em;">
@@ -598,32 +580,38 @@
         </div>
     </section>
 
+    <!-- THEME TOGGLE SCRIPT -->
     <script>
         (function() {
             // Immediately-invoked function to avoid polluting global scope
             
-            const toggle = document.getElementById('theme-toggle-checkbox');
+            // Get the checkbox and the body
+            const toggleCheckbox = document.getElementById('theme-toggle-checkbox');
             const body = document.body;
             const preferenceKey = 'theme-preference';
 
             /**
-             * Applies the theme to the body and updates the toggle state.
+             * Applies the theme to the body and updates the toggle's checked state.
              * @param {string} theme - 'light' or 'dark'
              */
             function setTheme(theme) {
                 if (theme === 'dark') {
                     body.classList.add('dark-mode');
                     body.classList.remove('light-mode'); // Ensure light is off
-                    toggle.checked = true;
+                    toggleCheckbox.checked = true; // Sync checkbox state
                 } else { // 'light'
                     body.classList.add('light-mode');
                     body.classList.remove('dark-mode'); // Ensure dark is off
-                    toggle.checked = false;
+                    toggleCheckbox.checked = false; // Sync checkbox state
                 }
             }
 
             // --- 1. Set initial theme on page load ---
+            
+            // Check for a saved user preference in local storage
             const savedPreference = localStorage.getItem(preferenceKey);
+            
+            // Check if the user's system prefers dark mode
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             let initialTheme;
@@ -634,22 +622,34 @@
                 // No preference saved, use the system preference
                 initialTheme = systemPrefersDark ? 'dark' : 'light';
             }
+            
+            // Apply the determined theme and update the checkbox state
             setTheme(initialTheme);
 
 
             // --- 2. Listen for toggle clicks ---
-            toggle.addEventListener('change', () => {
-                const newTheme = toggle.checked ? 'dark' : 'light';
+            
+            // We listen for the 'change' event on the checkbox
+            toggleCheckbox.addEventListener('change', () => {
+                // When the label is clicked, the checkbox state changes
+                const newTheme = toggleCheckbox.checked ? 'dark' : 'light';
+                
+                // Apply the new theme
                 setTheme(newTheme);
-                // Save the user's explicit choice to local storage
+                
+                // Save this new choice to local storage
                 localStorage.setItem(preferenceKey, newTheme);
             });
 
             // --- 3. Listen for system theme changes ---
+            
+            // This listens for when the user changes their OS theme
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                // ONLY update if no manual preference is saved in local storage
+                
+                // We ONLY update the theme if the user hasn't made a manual choice
                 if (!localStorage.getItem(preferenceKey)) {
                     const newSystemTheme = e.matches ? 'dark' : 'light';
+                    // Apply the new system theme and update the checkbox
                     setTheme(newSystemTheme);
                 }
             });
