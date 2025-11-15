@@ -114,6 +114,15 @@
         h1 { font-size: 2.75em; margin-bottom: 0.5em; }
         h2 { font-size: 2em; margin-bottom: 1em; border-bottom: 2px solid var(--brand-color); padding-bottom: 0.5em; }
         h3 { font-size: 1.5em; margin-bottom: 0.75em; }
+        
+        a {
+            color: var(--brand-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
 
         /* Header */
         #header {
@@ -155,6 +164,7 @@
             background: var(--brand-color-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px var(--brand-shadow);
+            text-decoration: none;
         }
 
         .button.large {
@@ -201,6 +211,9 @@
             gap: 2em;
             flex-wrap: wrap;
             align-items: center; /* Vertically center toggle */
+            max-width: 1200px; /* Match container width */
+            margin: 0 auto;
+            padding: 0 2em; /* Match container padding */
         }
 
         #nav a {
@@ -213,6 +226,7 @@
 
         #nav a:hover {
             color: var(--brand-color);
+            text-decoration: none;
         }
 
         /* Games Grid */
@@ -257,12 +271,25 @@
             margin-bottom: 0.5em;
         }
 
-        /* ... other feature styles ... */
-
         /* List styles */
+        ul.checklist {
+            list-style: none;
+            margin: 2em 0;
+        }
+
+        ul.checklist li {
+            padding: 0.5em 0 0.5em 2em;
+            position: relative;
+            font-size: 1.1em;
+        }
+
         ul.checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
             color: var(--brand-color);
-            /* ... */
+            font-weight: bold;
+            font-size: 1.5em;
         }
 
         /* Box */
@@ -284,20 +311,6 @@
             border-color: var(--incentive-border);
         }
 
-        /* System Info Grid */
-        .system-box {
-            background: var(--system-box-bg);
-            padding: 2em;
-            border-left: 4px solid var(--brand-color);
-            border-radius: 4px;
-            transition: background var(--transition-speed);
-        }
-
-        .system-box h4 {
-            color: var(--heading-color);
-            /* ... */
-        }
-
         /* Footer */
         #footer {
             background: var(--footer-bg);
@@ -311,17 +324,41 @@
             color: var(--brand-color);
             text-decoration: none;
         }
+        
+        #footer a:hover {
+            text-decoration: underline;
+        }
 
         /* Responsive */
+        @media screen and (max-width: 980px) { /* Adjusted breakpoint for better nav wrapping */
+            #nav ul {
+                gap: 1em;
+                justify-content: center;
+            }
+        }
+        
         @media screen and (max-width: 768px) {
-            /* ... existing responsive styles ... */
+            #header h1 { font-size: 2em; }
+            #header p { font-size: 1.2em; }
+            h2 { font-size: 1.5em; }
+            section { padding: 3em 0; }
             #nav ul { gap: 1em; padding: 0 1em; justify-content: center; }
+            #nav a { font-size: 0.9em; }
         }
 
         /* --- 6. Theme Toggle Styles --- */
         .theme-toggle-container {
             display: flex;
             align-items: center;
+            margin-left: auto; /* Pushes toggle to the far right */
+        }
+        
+        .theme-toggle-label {
+            color: var(--nav-link-color);
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-right: 0.75em;
+            white-space: nowrap;
         }
 
         .theme-toggle {
@@ -406,18 +443,15 @@
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav id="nav">
         <ul>
             <li><a href="#aim">What is Our Aim?</a></li>
             <li><a href="#games">Games We're Studying</a></li>
             <li><a href="#requirements">What Do You Need?</a></li>
-            <li><a href="#system-info">System Information Options</a></li>
             <li><a href="#incentive">Incentive</a></li>
-            <li><a href="#participate">Ready to Participate?</a></li>
-            <!-- NEW THEME TOGGLE -->
+            <li><a href="#about-us">About Us</a></li> <li><a href="#participate">Ready to Participate?</a></li>
             <li class="theme-toggle-container">
-                <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle dark mode">
+                <span class="theme-toggle-label">Theme:</span> <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle dark mode">
                     <input type="checkbox" id="theme-toggle-checkbox">
                     <span class="slider">
                         <span class="icon sun">☀️</span>
@@ -428,7 +462,6 @@
         </ul>
     </nav>
 
-    <!-- Header -->
     <section id="header">
         <div class="container">
             <h1>Esports Configuration Study</h1>
@@ -437,7 +470,6 @@
         </div>
     </section>
 
-    <!-- What is Our Aim? -->
     <section id="aim">
         <div class="container">
             <h2>What is Our Aim?</h2>
@@ -462,7 +494,6 @@
         </div>
     </section>
 
-    <!-- Games We're Studying -->
     <section id="games" class="alt">
         <div class="container">
             <h2>Games We're Studying</h2>
@@ -488,7 +519,6 @@
         </div>
     </section>
 
-    <!-- What Do You Need? -->
     <section id="requirements">
         <div class="container">
             <h2>What Do You Need?</h2>
@@ -504,37 +534,7 @@
         </div>
     </section>
 
-    <!-- System Information Options -->
-    <section id="system-info" class="alt">
-        <div class="container">
-            <h2>System Information Options</h2>
-            <p style="font-size: 1.1em; margin-bottom: 2em;">
-                We offer several easy ways to provide your hardware specifications (all optional):
-            </p>
-            <div class="system-info-grid">
-                <div class="system-box">
-                    <h4>Our Custom Tool</h4>
-                    <p>Simple one-click collection</p>
-                </div>
-                <div class="system-box">
-                    <h4>Steam</h4>
-                    <p>Export from Steam settings</p>
-                </div>
-                <div class="system-box">
-                    <h4>GeForce Experience</h4>
-                    <p>For NVIDIA GPU users</p>
-                </div>
-                <div class="system-box">
-                    <h4>Manual Entry</h4>
-                    <p>Type it in yourself</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Incentive -->
-    <section id="incentive">
-        <div class="container">
+    <section id="incentive" class="alt"> <div class="container">
             <h2>Incentive</h2>
             
             <div class="box incentive">
@@ -547,9 +547,22 @@
         </div>
     </section>
 
-    <!-- Ready to Participate? -->
-    <section id="participate" class="alt">
-        <div class="container">
+    <section id="about-us"> <div class="container">
+            <h2>About Us</h2>
+            <p style="font-size: 1.2em; margin-bottom: 2em;">
+                I am Ashish Rajpurohit, a PhD Student at North Carolina State University. I'm currently working on a research
+                project with the <a href="https://vxlab.csc.ncsu.edu/" target="_blank" rel="noopener noreferrer">Visual Experience Lab</a> at NC State, under the guidance of <a href="https://watson.csc.ncsu.edu/" target="_blank" rel="noopener noreferrer">Dr. Benjamin Watson</a>.
+            </p>
+            <p style="font-size: 1.2em; margin-bottom: 2em;">
+                We're interested in looking at esports and video games from an academic perspective, and to find out
+                more about this growing industry to help players get the most out of their gameplay, either casually or
+                competitively.
+            </p>
+        </div>
+    </section>
+
+
+    <section id="participate" class="alt"> <div class="container">
             <h2>Ready to Participate?</h2>
 
             <div style="text-align: center; margin: 3em 0;">
@@ -574,7 +587,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <section id="footer">
         <div class="container">
             <p style="margin-bottom: 0.5em;">
@@ -586,7 +598,6 @@
         </div>
     </section>
 
-    <!-- NEW THEME TOGGLE SCRIPT -->
     <script>
         (function() {
             // Immediately-invoked function to avoid polluting global scope
