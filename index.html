@@ -19,13 +19,11 @@
             --text-color: #555;
             --heading-color: #333;
             --alt-bg-color: #f9f9f9;
-            --nav-bg-color: rgba(255, 255, 255, 0.95);
+            --nav-bg-color: rgba(255, 255, 255, 0.98); /* Slightly more opaque for logos */
             --nav-link-color: #555;
+            --nav-border-bottom: 1px solid #eee;
             --game-item-bg: #fff;
             --game-item-border: #e0e0e0;
-            --box-bg: #f5f5f5;
-            --box-highlight-bg: #e8f7f6;
-            --box-incentive-bg: #fff9e6;
             --footer-bg: #333;
             --footer-text: white;
             
@@ -35,7 +33,6 @@
             --brand-shadow: rgba(78, 205, 196, 0.3);
             --white: #fff;
             --black: #000;
-            --incentive-border: #ffc107;
             
             /* Transitions */
             --transition-speed: 0.3s;
@@ -48,13 +45,9 @@
                 --text-color: #ccc;
                 --heading-color: #eee;
                 --alt-bg-color: #222;
-                --nav-bg-color: rgba(25, 25, 25, 0.95);
+                --nav-bg-color: rgba(25, 25, 25, 0.98);
                 --nav-link-color: #ccc;
-                --game-item-bg: #2a2a2a;
-                --game-item-border: #444;
-                --box-bg: #333;
-                --box-highlight-bg: #2a3a39;
-                --box-incentive-bg: #3a362a;
+                --nav-border-bottom: 1px solid #333;
                 --footer-bg: #222;
                 --footer-text: #ccc;
             }
@@ -66,13 +59,9 @@
             --text-color: #ccc;
             --heading-color: #eee;
             --alt-bg-color: #222;
-            --nav-bg-color: rgba(25, 25, 25, 0.95);
+            --nav-bg-color: rgba(25, 25, 25, 0.98);
             --nav-link-color: #ccc;
-            --game-item-bg: #2a2a2a;
-            --game-item-border: #444;
-            --box-bg: #333;
-            --box-highlight-bg: #2a3a39;
-            --box-incentive-bg: #3a362a;
+            --nav-border-bottom: 1px solid #333;
             --footer-bg: #222;
             --footer-text: #ccc;
         }
@@ -83,18 +72,14 @@
             --text-color: #555;
             --heading-color: #333;
             --alt-bg-color: #f9f9f9;
-            --nav-bg-color: rgba(255, 255, 255, 0.95);
+            --nav-bg-color: rgba(255, 255, 255, 0.98);
             --nav-link-color: #555;
-            --game-item-bg: #fff;
-            --game-item-border: #e0e0e0;
-            --box-bg: #f5f5f5;
-            --box-highlight-bg: #e8f7f6;
-            --box-incentive-bg: #fff9e6;
+            --nav-border-bottom: 1px solid #eee;
             --footer-bg: #333;
             --footer-text: white;
         }
 
-        /* --- 5. Refactored Base Styles --- */
+        /* --- 5. Base Styles --- */
         body {
             font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             line-height: 1.65;
@@ -126,9 +111,10 @@
         #header {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('images/hero.png') center/cover;
-            color: var(--white); /* Stays white on dark image */
+            color: var(--white);
             padding: 8em 0;
             text-align: center;
+            margin-top: 60px; /* Offset for fixed nav */
         }
 
         #header h1 {
@@ -187,127 +173,155 @@
             background: var(--alt-bg-color);
         }
 
-        /* Navigation */
+        /* Navigation (RESTRUCTURED FOR LOGOS) */
         #nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: var(--nav-bg-color);
+            border-bottom: var(--nav-border-bottom);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* For Safari */
-            padding: 1em 0;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.5em 0;
             z-index: 1000;
             transition: background var(--transition-speed);
         }
 
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px; /* Slightly wider to fit logos */
+            margin: 0 auto;
+            padding: 0 2em;
+        }
+
+        /* Navigation Links */
         #nav ul {
             list-style: none;
             display: flex;
-            justify-content: center;
-            gap: 2em;
-            flex-wrap: wrap;
-            align-items: center; /* Vertically center toggle */
-            max-width: 1200px; /* Match container width */
-            margin: 0 auto;
-            padding: 0 2em; /* Match container padding */
+            gap: 1.5em;
+            margin: 0;
+            padding: 0;
         }
 
-        #nav a {
+        #nav a.nav-link {
             color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
+            font-size: 0.95em;
             white-space: nowrap;
         }
 
-        #nav a:hover {
+        #nav a.nav-link:hover {
             color: var(--brand-color);
             text-decoration: none;
         }
 
-        /* Games Grid */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1em;
-            margin: 2em 0;
+        /* Logos */
+        .nav-logo img {
+            height: 40px; /* Adjust based on your actual logo aspect ratio */
+            width: auto;
+            display: block;
+        }
+        
+        .nav-right-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5em;
         }
 
-        .game-item {
-            background: var(--game-item-bg);
-            padding: 1.5em;
-            text-align: center;
-            border: 2px solid var(--game-item-border);
-            border-radius: 4px;
-            font-weight: 600;
-            transition: all 0.3s;
-            color: var(--heading-color); /* Ensure text color updates */
+        /* --- Theme Toggle Styles --- */
+        .theme-toggle {
+            background: transparent; 
+            border: 1px solid var(--nav-link-color);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            color: var(--nav-link-color);
         }
-
-        .game-item:hover {
+        
+        .theme-toggle:hover {
             border-color: var(--brand-color);
-            transform: translateY(-3px);
+            color: var(--brand-color);
+        }
+        
+        .theme-toggle input { display: none; }
+        
+        .theme-toggle .icon {
+            position: absolute;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            user-select: none;
         }
 
-        /* Features */
+        .theme-toggle .sun { transform: scale(1) rotate(0deg); opacity: 1; }
+        .theme-toggle .moon { transform: scale(0) rotate(-90deg); opacity: 0; }
+
+        body.dark-mode .theme-toggle .sun { transform: scale(0) rotate(90deg); opacity: 0; }
+        body.dark-mode .theme-toggle .moon { transform: scale(1) rotate(0deg); opacity: 1; }
+
+
+        /* --- NEW STYLES: Games List (No Buttons, 2 Columns) --- */
+        .games-list-container {
+            margin: 2em auto;
+            max-width: 900px;
+        }
+        
+        /* This creates the two columns */
+        .games-list {
+            column-count: 2;
+            column-gap: 4em;
+            list-style-type: disc; /* Standard bullet */
+            padding-left: 2em;
+            font-size: 1.2em;
+        }
+        
+        .games-list li {
+            margin-bottom: 0.8em;
+            break-inside: avoid; /* Prevents text splitting across columns */
+        }
+        
+        /* --- NEW STYLES: Professional Lists (No Green/Yellow Boxes) --- */
+        .requirements-list {
+            list-style: disc;
+            padding-left: 2em;
+            font-size: 1.1em;
+            margin: 1.5em 0;
+            color: var(--text-color);
+        }
+        
+        .requirements-list li {
+            margin-bottom: 1em;
+        }
+        
+        .incentive-text {
+            font-size: 1.2em;
+            text-align: left;
+            border-left: 4px solid var(--brand-color);
+            padding-left: 1.5em;
+            margin: 2em 0;
+            font-style: italic;
+        }
+
+        /* Features Grid */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 3em;
             margin: 3em 0;
         }
-
-        .feature {
-            text-align: center;
-        }
-
-        .feature .icon {
-            font-size: 3em;
-            color: var(--brand-color);
-            margin-bottom: 0.5em;
-        }
-
-        /* List styles */
-        ul.checklist {
-            list-style: none;
-            margin: 2em 0;
-        }
-
-        ul.checklist li {
-            padding: 0.5em 0 0.5em 2em;
-            position: relative;
-            font-size: 1.1em;
-        }
-
-        ul.checklist li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--brand-color);
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        /* Box */
-        .box {
-            background: var(--box-bg);
-            padding: 2em;
-            border-left: 4px solid var(--brand-color);
-            margin: 2em 0;
-            transition: background var(--transition-speed);
-        }
-
-        .box.highlight {
-            background: var(--box-highlight-bg);
-            border-color: var(--brand-color);
-        }
-
-        .box.incentive {
-            background: var(--box-incentive-bg);
-            border-color: var(--incentive-border);
-        }
+        .feature { text-align: center; }
+        .feature .icon { font-size: 3em; color: var(--brand-color); margin-bottom: 0.5em; }
 
         /* Footer */
         #footer {
@@ -315,93 +329,15 @@
             color: var(--footer-text);
             text-align: center;
             padding: 3em 0;
-            transition: background var(--transition-speed), color var(--transition-speed);
+            transition: background var(--transition-speed);
         }
-
-        #footer a {
-            color: var(--brand-color);
-            text-decoration: none;
-        }
-        
-        #footer a:hover {
-            text-decoration: underline;
-        }
+        #footer a { color: var(--brand-color); }
 
         /* Responsive */
-        @media screen and (max-width: 980px) { /* Adjusted breakpoint for better nav wrapping */
-            #nav ul {
-                gap: 1em;
-                justify-content: center;
-            }
-        }
-        
-        @media screen and (max-width: 768px) {
-            #header h1 { font-size: 2em; }
-            #header p { font-size: 1.2em; }
-            h2 { font-size: 1.5em; }
-            section { padding: 3em 0; }
-            #nav ul { gap: 1em; padding: 0 1em; justify-content: center; }
-            #nav a { font-size: 0.9em; }
-        }
-
-        /* --- 6. Theme Toggle Styles (REDESIGNED) --- */
-        .theme-toggle-container {
-            margin-left: auto; /* Pushes toggle to the far right */
-        }
-        
-        .theme-toggle {
-            background: var(--alt-bg-color);
-            border: 1px solid var(--game-item-border);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px; /* Increased from 20px */
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent; /* for mobile */
-        }
-        .theme-toggle:hover {
-            border-color: var(--brand-color);
-        }
-        
-        /* This is the actual checkbox, we hide it */
-        .theme-toggle input {
-            display: none; 
-        }
-        
-        /* This is the container for the icons */
-        .theme-toggle .icon {
-            position: absolute;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            user-select: none;
-        }
-
-        /* Initial state (light mode) */
-        .theme-toggle .sun {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-        }
-        
-        .theme-toggle .moon {
-            transform: scale(0) rotate(-90deg);
-            opacity: 0;
-        }
-
-        /* This selector is triggered by the JS setting .dark-mode on the <body> */
-        /* This is the state for dark mode */
-        body.dark-mode .theme-toggle .sun {
-            transform: scale(0) rotate(90deg);
-            opacity: 0;
-        }
-
-        body.dark-mode .theme-toggle .moon {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
+        @media screen and (max-width: 1024px) {
+            .nav-inner { flex-direction: column; gap: 1em; padding: 1em; }
+            #header { margin-top: 140px; } /* More space for stacked nav */
+            .games-list { column-count: 1; } /* 1 column on mobile */
         }
         
     </style>
@@ -410,28 +346,37 @@
 
     <!-- Navigation -->
     <nav id="nav">
-        <ul>
-            <li><a href="#aim">What is Our Aim?</a></li>
-            <li><a href="#games">Games We're Studying</a></li>
-            <li><a href="#requirements">Can I participate?</a></li>
-            <li><a href="#incentive">What might I get?</a></li>
-            <li><a href="#participate">Ready to Participate?</a></li> <!-- SWAPPED -->
-            <li><a href="#about-us">About Us</a></li> <!-- SWAPPED -->
-            
-            <!-- MOVED AND REDESIGNED THEME TOGGLE -->
-            <li class="theme-toggle-container"> <!-- FIX: Corrected "class." to "class=" -->
-                <!-- The <label> is the clickable button -->
+        <div class="nav-inner">
+            <!-- Left: NCSU Logo -->
+            <a href="https://www.ncsu.edu/" target="_blank" class="nav-logo">
+                <!-- PLACEHOLDER: Replace src with your "images/ncsu-logo.png" -->
+                <img src="https://placehold.co/180x50/8b0000/ffffff?text=NCSU+Logo" alt="NC State University">
+            </a>
+
+            <!-- Center: Links -->
+            <ul>
+                <li><a href="#aim" class="nav-link">Aim</a></li>
+                <li><a href="#games" class="nav-link">Games</a></li>
+                <li><a href="#requirements" class="nav-link">Can I participate?</a></li>
+                <li><a href="#incentive" class="nav-link">What might I get?</a></li>
+                <li><a href="#participate" class="nav-link">Participate</a></li>
+                <li><a href="#about-us" class="nav-link">About Us</a></li>
+            </ul>
+
+            <!-- Right: VX Lab Logo + Theme Toggle -->
+            <div class="nav-right-group">
+                <a href="https://vxlab.csc.ncsu.edu/" target="_blank" class="nav-logo">
+                    <!-- PLACEHOLDER: Replace src with your "images/vxlab-logo.png" -->
+                    <img src="https://placehold.co/180x50/cc0000/ffffff?text=VX+Lab+Logo" alt="Visual Experience Lab">
+                </a>
+                
                 <label class="theme-toggle" for="theme-toggle-checkbox" title="Toggle theme">
-                    
-                    <!-- The checkbox is hidden but tracks the state (checked/unchecked) -->
                     <input type="checkbox" id="theme-toggle-checkbox">
-                    
-                    <!-- The icons are shown/hidden with CSS based on the <body> class -->
-                    <span class="icon sun">☼</span>
-                    <span class="icon moon">☾</span>
+                    <span class="icon sun">☀️</span>
+                    <span class="icon moon">🌙</span>
                 </label>
-            </li>
-        </ul>
+            </div>
+        </div>
     </nav>
 
     <!-- Header -->
@@ -450,7 +395,7 @@
             <p style="font-size: 1.2em; margin-bottom: 2em;">
                 We're looking for participants in an esports research experiment. If you play any esports games 
                 either competitively or casually, you are eligible for this survey! We'll ask you about the 
-                games you play, how you configure your settings, and your preferences for visual quality vs. performance. 
+                games you play, how you configure your settings, and your preferences for visual quality vs. performance.
                 In the long term, our goal is to learn what players need to improve their in-game experience.
             </p>
 
@@ -460,50 +405,41 @@
                     <h3>Share Your Setup</h3>
                     <p>Tell us about your game settings, hardware, and configuration choices</p>
                 </div>
-                <div class="feature"> <!-- FIX: Corrected "class." to "class=" -->
+                <div class="feature">
                     <div class="icon">📊</div>
                     <h3>Help Research</h3>
                     <p>Contribute to academic research that helps improve gaming experiences</p>
                 </div>
             </div>
-
-            <!-- REMOVING THE DUPLICATED SECTION THAT STARTS BELOW -->
-            <!-- <div class="features">
-                <div class="feature">
-                    <div class="icon">🎮</div>
-                    <h3>Share Your Setup</h3>
-                    <p>Tell us about your game settings, hardware, and configuration choices</p>
-                </div>
-                <div class="feature"> 
-                    <div class="icon">📊</div>
-                    <h3>Help Research</h3>
-        </div> -->
+        </div>
     </section>
 
     <!-- Games We're Studying -->
     <section id="games" class="alt">
         <div class="container">
             <h2>Games We're Studying</h2>
-            <p style="font-size: 1.1em; margin-bottom: 2em;">
-                We're examining configuration practices across 14 popular competitive titles
+            <p style="font-size: 1.1em; margin-bottom: 1em;">
+                We're examining configuration practices across 14 popular competitive titles:
             </p>
-            <div class="games-grid">
-                <div class="game-item">Valorant</div>
-                <div class="game-item">CS2</div>
-                <div class="game-item">Dota 2</div>
-                <div class="game-item">League of Legends</div>
-                <div class="game-item">Overwatch 2</div>
-                <div class="game-item">Apex Legends</div>
-                <!-- REMOVING THE BROKEN LINE BELOW -->
-                <!-- <div class-="game-item">Rainbow Six Siege</div> -->
-                <div class="game-item">Fortnite</div>
-                <div class="game-item">PUBG</div>
-                <div class="game-item">Starcraft II</div>
-                <div class="game-item">Rocket League</div>
-                <div class="game-item">Call of Duty</div>
-                <div class="game-item">FIFA / FC 24</div>
-                <div class="game-item">Street Fighter</div>
-                <div class="game-item">Rainbow Six Siege</div> <!-- This is the correct one -->
+            
+            <!-- REPLACED BUTTONS WITH 2-COLUMN LIST -->
+            <div class="games-list-container">
+                <ul class="games-list">
+                    <li>Valorant</li>
+                    <li>CS2</li>
+                    <li>Dota 2</li>
+                    <li>League of Legends</li>
+                    <li>Overwatch 2</li>
+                    <li>Apex Legends</li>
+                    <li>Fortnite</li>
+                    <li>PUBG</li>
+                    <li>Starcraft II</li>
+                    <li>Rocket League</li>
+                    <li>Call of Duty</li>
+                    <li>FIFA / FC 24</li>
+                    <li>Street Fighter</li>
+                    <li>Rainbow Six Siege</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -512,15 +448,15 @@
     <section id="requirements">
         <div class="container">
             <h2>Can I participate?</h2>
+            <p style="font-size: 1.1em; margin-bottom: 1em;">Participants must meet the following simple criteria:</p>
             
-            <div class="box highlight">
-                <ul class="checklist">
-                    <li>Must be 18+ years old</li>
-                    <li>Play at least one esports game listed above either competitively or casually</li>
-                    <li>Play the game on your PC and ensure that the game you want to answer the question about is installed. This will allow you to upload the configuration files for that game, which will earn you an additional entry into the raffle.</li>
-                    <li>Commitment of at least 8 minutes per section for each game you choose to provide details about</li>
-                </ul>
-            </div>
+            <!-- REPLACED GREEN BOX WITH CLEAN LIST -->
+            <ul class="requirements-list">
+                <li>Must be <strong>18+ years old</strong>.</li>
+                <li>Play at least one esports game listed above either competitively or casually.</li>
+                <li>Play the game on your PC and ensure that the game you want to answer the question about is installed. This will allow you to upload the configuration files for that game, which will earn you an additional entry into the raffle.</li>
+                <li>Commitment of at least <strong>8 minutes</strong> per section for each game you choose to provide details about.</li>
+            </ul>
         </div>
     </section>
 
@@ -529,18 +465,17 @@
         <div class="container">
             <h2>What might I get?</h2>
             
-            <div class="box incentive">
-                <p style="font-size: 1.1em;">
-                    <strong>Participants have a chance to win $100 digital gift cards</strong> (or equivalent in local currency) 
-                    through a raffle. Uploading game configuration files will give you an entry into an additional raffle, 
-                    increasing your chances to win!
-                </p>
+            <!-- REPLACED YELLOW BOX WITH CLEAN TEXT -->
+            <div class="incentive-text">
+                Participants have a chance to win <strong>$100 digital gift cards</strong> (or equivalent in local currency) 
+                through a raffle. Uploading game configuration files will give you an entry into an additional raffle, 
+                increasing your chances to win!
             </div>
         </div>
     </section>
 
-    <!-- Ready to Participate? (SWAPPED) -->
-    <section id="participate"> <!-- Removed .alt -->
+    <!-- Ready to Participate? -->
+    <section id="participate">
         <div class="container">
             <h2>Ready to Participate?</h2>
 
@@ -550,14 +485,11 @@
                 </p>
                 <a href="https://ncsu.qualtrics.com/jfe/form/SV_3W8KwkVMOjMmzOu" class="button large" target="_blank">Start the Survey</a>
             </div>
-
-            <!-- REMOVED "About this Study" box -->
-
         </div>
     </section>
 
-    <!-- About Us Section (SWAPPED & UPDATED) -->
-    <section id="about-us" class="alt"> <!-- Added .alt -->
+    <!-- About Us Section -->
+    <section id="about-us" class="alt">
         <div class="container">
             <h2>About Us</h2>
             <p style="font-size: 1.2em; margin-bottom: 2em;">
@@ -569,13 +501,13 @@
                 more about this growing industry to help players get the most out of their gameplay, either casually or
                 competitively.
             </p>
-            <!-- ADDED text from the removed box -->
             <p style="font-size: 1.2em; margin-bottom: 2em;">
                 This research is conducted by the <strong>Visual Experience Lab at NC State University</strong>. 
                 The study examines how competitive players navigate tradeoffs between visual quality and 
                 performance when configuring game settings.
             </p>
             <p style="font-size: 1.1em; opacity: 0.8;">
+                <strong>Study Contact:</strong> Ashish Rajpurohit, <a href="mailto:arajpur@ncsu.edu">arajpur@ncsu.edu</a><br>
                 <strong>IRB Approval:</strong> #25527
             </p>
         </div>
@@ -596,74 +528,36 @@
     <!-- THEME TOGGLE SCRIPT -->
     <script>
         (function() {
-            // Immediately-invoked function to avoid polluting global scope
-            
-            // Get the checkbox and the body
             const toggleCheckbox = document.getElementById('theme-toggle-checkbox');
             const body = document.body;
             const preferenceKey = 'theme-preference';
 
-            /**
-             * Applies the theme to the body and updates the toggle's checked state.
-             * @param {string} theme - 'light' or 'dark'
-             */
             function setTheme(theme) {
                 if (theme === 'dark') {
                     body.classList.add('dark-mode');
-                    body.classList.remove('light-mode'); // Ensure light is off
-                    toggleCheckbox.checked = true; // Sync checkbox state
-                } else { // 'light'
+                    body.classList.remove('light-mode');
+                    toggleCheckbox.checked = true;
+                } else {
                     body.classList.add('light-mode');
-                    body.classList.remove('dark-mode'); // Ensure dark is off
-                    toggleCheckbox.checked = false; // Sync checkbox state
+                    body.classList.remove('dark-mode');
+                    toggleCheckbox.checked = false;
                 }
             }
 
-            // --- 1. Set initial theme on page load ---
-            
-            // Check for a saved user preference in local storage
             const savedPreference = localStorage.getItem(preferenceKey);
-            
-            // Check if the user's system prefers dark mode
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            let initialTheme;
-            if (savedPreference) {
-                // Use the user's saved preference
-                initialTheme = savedPreference;
-            } else {
-                // No preference saved, use the system preference
-                initialTheme = systemPrefersDark ? 'dark' : 'light';
-            }
-            
-            // Apply the determined theme and update the checkbox state
+            let initialTheme = savedPreference ? savedPreference : (systemPrefersDark ? 'dark' : 'light');
             setTheme(initialTheme);
 
-
-            // --- 2. Listen for toggle clicks ---
-            
-            // We listen for the 'change' event on the checkbox
             toggleCheckbox.addEventListener('change', () => {
-                // When the label is clicked, the checkbox state changes
                 const newTheme = toggleCheckbox.checked ? 'dark' : 'light';
-                
-                // Apply the new theme
                 setTheme(newTheme);
-                
-                // Save this new choice to local storage
                 localStorage.setItem(preferenceKey, newTheme);
             });
 
-            // --- 3. Listen for system theme changes ---
-            
-            // This listens for when the user changes their OS theme
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                
-                // We ONLY update the theme if the user hasn't made a manual choice
                 if (!localStorage.getItem(preferenceKey)) {
-                    const newSystemTheme = e.matches ? 'dark' : 'light';
-                    // Apply the new system theme and update the checkbox
-                    setTheme(newSystemTheme);
+                    setTheme(e.matches ? 'dark' : 'light');
                 }
             });
         })();
